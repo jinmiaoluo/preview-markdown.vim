@@ -44,7 +44,11 @@ function! preview_markdown#preview() abort
 
   let is_vert = get(g:, 'preview_markdown_vertical', 0)
 
-  let cmd = printf("%s %s", parser, tmp)
+  if !exists('g:preview_markdown_parser_option')
+    let cmd = printf("%s %s", parser, tmp)
+  else
+    let cmd = printf("%s %s %s", parser, g:preview_markdown_parser_option, tmp)
+  endif
 
   if has('nvim')
     if is_vert

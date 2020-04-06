@@ -73,6 +73,10 @@ g:preview_markdown_auto_update			*g:preview_markdown_auto_update*
 	when you write to buffer, please set value to 1.
 	NOTE: This unstill support Neovim.
 
+g:preview_markdown_parser_option		g:preview_markdown_parser_option
+	If you want to use `glow' as parser, you need to set this option.
+	e.g: `let g:preview_markdown_parser_option='-p'`
+
 ==============================================================================
 TODO						*preview_markdown-todo*
 
