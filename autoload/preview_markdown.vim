@@ -43,7 +43,7 @@ function! preview_markdown#preview() abort
   endif
 
   let is_vert = get(g:, 'preview_markdown_vertical', 0)
-  
+
   let cmd = printf("%s %s", parser, tmp)
 
   if has('nvim')
@@ -61,13 +61,11 @@ function! preview_markdown#preview() abort
     let s:preview_buf_nr = termopen(cmd, opt)
   else
     let opt = {
-          \ 'hidden': 1,
-          \ 'curwin': 1,
-          \ 'term_finish': 'open',
+          \ 'term_finish': 'close',
           \ 'term_kill': 'kill',
           \ 'term_name': 'PREVIEW',
-          \ 'term_opencmd': is_vert ? 'vnew|b %d' : 'new|b %d',
           \ 'exit_cb': function('s:remove_tmp', [tmp]),
+          \ 'vertical': is_vert ? 1 : 0,
           \ }
 
     if bufexists(s:preview_buf_nr)
@@ -80,12 +78,6 @@ function! preview_markdown#preview() abort
         endif
       else
         call win_gotoid(winid)
-      endif
-    else
-      if is_vert
-        execute 'vnew'
-      else
-        execute 'new'
       endif
     endif
 
@@ -105,7 +97,7 @@ function! preview_markdown#preview() abort
     endif
 
     let s:preview_buf_nr = term_start(cmd, opt)
-	
+
   endif
 endfunction
 
